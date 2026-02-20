@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>$RARE</title>
     <meta name="description" content="71.7% of the supply is gone forever. $RARE on Solana.">
-    <meta property="og:title" content="$RARE">
-    <meta property="og:description" content="71.7% burned. what's left is all there'll ever be.">
+    <meta property="og:title" content="$RARE — Scarcity is reality">
+    <meta property="og:description" content="71.7% burned. What's left is all there'll ever be.">
     <link rel="icon" type="image/png" href="assets/pfp.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,15 +18,18 @@
 </head>
 
 <body>
-    <!-- cursor glow -->
-    <div class="cursor-glow" id="cursor-glow"></div>
+    <!-- animated bg -->
+    <canvas id="particles"></canvas>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
 
     <!-- nav -->
     <nav id="navbar">
         <div class="nav-inner">
             <a href="#" class="logo">
-                <img src="assets/pfp.png" alt="$RARE" class="logo-img">
-                <span>$RARE</span>
+                <img src="assets/pfp.png" alt="" class="logo-img">
+                <span class="logo-text">$RARE</span>
             </a>
             <div class="nav-links" id="nav-links">
                 <a href="#about">About</a>
@@ -36,7 +39,13 @@
             </div>
             <div class="nav-end">
                 <a href="https://dexscreener.com/solana/EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump" target="_blank"
-                    class="nav-buy">Buy $RARE</a>
+                    class="nav-cta">
+                    Buy $RARE
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M7 17L17 7M17 7H7M17 7V17" />
+                    </svg>
+                </a>
                 <button class="burger" id="burger" aria-label="Menu">
                     <span></span><span></span>
                 </button>
@@ -48,34 +57,52 @@
     <header id="hero">
         <div class="container hero-grid">
             <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="dot"></span>
-                    71.7% supply burned
+                <div class="hero-badge glow-border">
+                    <span class="pulse-dot"></span>
+                    71.7% Supply Permanently Burned
                 </div>
-
                 <h1>
                     Things become
-                    <span class="shimmer">rare</span>
-                    when there isn't much of them left.
+                    <span class="hero-highlight">rare</span>
+                    when there isn't much left.
                 </h1>
-
-                <p class="hero-sub">
+                <p class="hero-desc">
                     We burned 717 million tokens — permanently. What's left is all there will ever be. No minting, no
                     inflation, no second chances.
                 </p>
-
-                <div class="hero-actions">
+                <div class="hero-buttons">
                     <a href="https://dexscreener.com/solana/EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump"
-                        target="_blank" class="btn-primary">Buy on Dex</a>
-                    <button class="btn-ghost" id="copy-btn">Copy CA</button>
+                        target="_blank" class="btn btn-glow">
+                        <span>Buy $RARE</span>
+                    </a>
+                    <button class="btn btn-glass" id="copy-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </svg>
+                        Copy CA
+                    </button>
                 </div>
                 <p class="ca-text" id="ca-text">EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump</p>
             </div>
-            <div class="hero-visual">
-                <div class="coin-container" id="coin-container">
-                    <div class="coin-glow"></div>
-                    <img src="assets/pfp.png" alt="$RARE coin" class="hero-coin" id="hero-coin">
+            <div class="hero-coin-area">
+                <div class="coin-wrapper" id="coin-wrapper">
+                    <div class="coin-ring"></div>
+                    <div class="coin-ring coin-ring-2"></div>
+                    <div class="coin-glow-bg"></div>
+                    <img src="assets/pfp.png" alt="$RARE" class="hero-coin" id="hero-coin">
+                    <div class="coin-particles">
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
                 </div>
+            </div>
+        </div>
+        <!-- scroll indicator -->
+        <div class="scroll-hint">
+            <div class="scroll-mouse">
+                <div class="scroll-dot"></div>
             </div>
         </div>
     </header>
@@ -83,48 +110,63 @@
     <!-- ticker -->
     <div class="ticker">
         <div class="ticker-track">
-            <span>$RARE</span><span class="ticker-sep">•</span>
-            <span>71.7% BURNED</span><span class="ticker-sep">•</span>
-            <span>283M REMAINING</span><span class="ticker-sep">•</span>
-            <span>SOLANA</span><span class="ticker-sep">•</span>
-            <span>SUPPLY IS FINAL</span><span class="ticker-sep">•</span>
-            <span>$RARE</span><span class="ticker-sep">•</span>
-            <span>71.7% BURNED</span><span class="ticker-sep">•</span>
-            <span>283M REMAINING</span><span class="ticker-sep">•</span>
-            <span>SOLANA</span><span class="ticker-sep">•</span>
-            <span>SUPPLY IS FINAL</span><span class="ticker-sep">•</span>
-            <span>$RARE</span><span class="ticker-sep">•</span>
-            <span>71.7% BURNED</span><span class="ticker-sep">•</span>
-            <span>283M REMAINING</span><span class="ticker-sep">•</span>
-            <span>SOLANA</span><span class="ticker-sep">•</span>
-            <span>SUPPLY IS FINAL</span><span class="ticker-sep">•</span>
+            <span class="ticker-item">$RARE</span>
+            <span class="ticker-dot">◆</span>
+            <span class="ticker-item">71.7% BURNED</span>
+            <span class="ticker-dot">◆</span>
+            <span class="ticker-item">283M LEFT</span>
+            <span class="ticker-dot">◆</span>
+            <span class="ticker-item">SOLANA</span>
+            <span class="ticker-dot">◆</span>
+            <span class="ticker-item">DEFLATIONARY</span>
+            <span class="ticker-dot">◆</span>
+            <span class="ticker-item">$RARE</span>
+            <span class="ticker-dot">◆</span>
+            <span class="ticker-item">71.7% BURNED</span>
+            <span class="ticker-dot">◆</span>
+            <span class="ticker-item">283M LEFT</span>
+            <span class="ticker-dot">◆</span>
+            <span class="ticker-item">SOLANA</span>
+            <span class="ticker-dot">◆</span>
+            <span class="ticker-item">DEFLATIONARY</span>
+            <span class="ticker-dot">◆</span>
         </div>
     </div>
 
     <!-- about -->
     <section id="about" class="section">
         <div class="container">
-            <div class="section-label reveal">The idea</div>
-            <div class="about-grid">
-                <div class="about-text reveal">
-                    <h2>Scarcity isn't a promise.<br>It already happened.</h2>
+            <div class="section-header reveal">
+                <span class="section-tag">The Idea</span>
+            </div>
+            <div class="about-layout">
+                <div class="about-left reveal">
+                    <h2>Scarcity isn't a promise.<br><span class="text-gradient">It already happened.</span></h2>
                     <p>We started with 1 billion tokens. Over 717 million of them were burned — permanently removed from
-                        circulation. That's not a roadmap item or a future plan. It's done.</p>
-                    <p>What's left — 283 million — is all there will ever be. No minting, no inflation, no second
-                        chances. The math is simple: less available means more rare.</p>
+                        existence. That's not a roadmap item. It's done.</p>
+                    <p>What's left — 283 million — is all there will ever be. No minting, no inflation. The supply only
+                        ever shrinks.</p>
                 </div>
-                <div class="about-stats reveal">
-                    <div class="stat-card">
-                        <div class="stat-num" data-count="71.7" data-suffix="%">0%</div>
-                        <div class="stat-label">of supply burned</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-num" data-count="283" data-suffix="M">0M</div>
-                        <div class="stat-label">tokens remaining</div>
-                    </div>
-                    <div class="stat-card stat-zero">
-                        <div class="stat-num">0</div>
-                        <div class="stat-label">new tokens ever</div>
+                <div class="about-right reveal">
+                    <div class="stat-stack">
+                        <div class="stat-card glow-card">
+                            <div class="stat-value" data-count="71.7" data-suffix="%">0%</div>
+                            <div class="stat-desc">Supply burned forever</div>
+                            <div class="stat-bar">
+                                <div class="stat-bar-fill" style="--fill: 71.7%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-card glow-card">
+                            <div class="stat-value" data-count="283" data-suffix="M">0M</div>
+                            <div class="stat-desc">Tokens remaining</div>
+                            <div class="stat-bar">
+                                <div class="stat-bar-fill" style="--fill: 28.3%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-card glow-card stat-accent">
+                            <div class="stat-value">0</div>
+                            <div class="stat-desc">New tokens. Ever.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,159 +174,161 @@
     </section>
 
     <!-- live data -->
-    <section id="data" class="section">
+    <section id="data" class="section section-alt">
         <div class="container">
-            <div class="section-label reveal">
-                Live data
-                <span class="live-badge"><span class="live-dot"></span>Live</span>
+            <div class="section-header reveal">
+                <span class="section-tag">Live Market Data</span>
+                <span class="live-indicator"><span class="live-pulse"></span>LIVE</span>
             </div>
             <div class="data-grid reveal">
-                <div class="data-card data-featured">
+                <div class="data-card data-hero glow-card">
                     <span class="data-label">Market Cap</span>
-                    <span class="data-value" id="mc-value">—</span>
+                    <span class="data-val" id="mc-value">—</span>
                 </div>
-                <div class="data-card">
+                <div class="data-card glow-card">
                     <span class="data-label">Price</span>
-                    <span class="data-value" id="price-value">—</span>
+                    <span class="data-val" id="price-value">—</span>
                 </div>
-                <div class="data-card">
+                <div class="data-card glow-card">
                     <span class="data-label">24h Volume</span>
-                    <span class="data-value" id="volume-value">—</span>
+                    <span class="data-val" id="volume-value">—</span>
                 </div>
-                <div class="data-card">
+                <div class="data-card glow-card">
                     <span class="data-label">24h Change</span>
-                    <span class="data-value" id="change-value">—</span>
+                    <span class="data-val" id="change-value">—</span>
                 </div>
-                <div class="data-card">
+                <div class="data-card glow-card">
                     <span class="data-label">Liquidity</span>
-                    <span class="data-value" id="liq-value">—</span>
+                    <span class="data-val" id="liq-value">—</span>
                 </div>
-                <div class="data-card">
-                    <span class="data-label">5m Txns</span>
-                    <span class="data-value" id="txns-value">—</span>
+                <div class="data-card glow-card">
+                    <span class="data-label">5m Buys / Sells</span>
+                    <span class="data-val" id="txns-value">—</span>
                 </div>
             </div>
-            <p class="data-footer">Powered by DexScreener · updates every 30s · <span id="last-update">—</span></p>
+            <p class="data-note">Powered by DexScreener · refreshes every 30s · <span id="last-update">—</span></p>
         </div>
     </section>
 
     <!-- supply -->
     <section id="supply" class="section">
         <div class="container">
-            <div class="section-label reveal">Supply breakdown</div>
-            <h2 class="reveal">The burn is done</h2>
-            <p class="section-sub reveal">No more tokens will ever be burned or created. This is the final state.</p>
+            <div class="section-header reveal">
+                <span class="section-tag">Tokenomics</span>
+            </div>
+            <h2 class="reveal">The burn is <span class="text-gradient">complete</span></h2>
+            <p class="section-desc reveal">717 million tokens permanently removed. This is the final supply.</p>
 
-            <div class="burn-bar-wrap reveal">
-                <div class="burn-bar">
-                    <div class="burn-progress" id="burn-progress">
-                        <span class="burn-label">Burned — 71.7%</span>
+            <div class="burn-visual reveal">
+                <div class="burn-track">
+                    <div class="burn-filled" id="burn-filled">
+                        <div class="burn-shimmer"></div>
+                        <span class="burn-txt">🔥 Burned — 71.7%</span>
                     </div>
-                    <span class="remaining-label">Left — 28.3%</span>
+                    <span class="burn-rest-txt">Remaining — 28.3%</span>
                 </div>
             </div>
 
-            <div class="supply-cards reveal">
-                <div class="supply-card">
-                    <div class="supply-val">717,000,000</div>
-                    <div class="supply-tag">Tokens destroyed</div>
+            <div class="supply-grid reveal">
+                <div class="supply-item glow-card">
+                    <div class="supply-icon">🔥</div>
+                    <div class="supply-num">717,000,000</div>
+                    <div class="supply-label">Tokens Destroyed</div>
                 </div>
-                <div class="supply-card">
-                    <div class="supply-val">283,000,000</div>
-                    <div class="supply-tag">In circulation</div>
+                <div class="supply-item glow-card">
+                    <div class="supply-icon">💎</div>
+                    <div class="supply-num">283,000,000</div>
+                    <div class="supply-label">In Circulation</div>
                 </div>
             </div>
 
-            <div class="ca-box reveal">
-                <span class="ca-label">Contract Address</span>
-                <div class="ca-row">
-                    <code id="full-ca">EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump</code>
-                    <button class="ca-copy" id="copy-btn-2" aria-label="Copy">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round">
+            <div class="ca-card glow-card reveal">
+                <div class="ca-top">
+                    <span class="ca-label">Contract Address</span>
+                    <button class="ca-btn" id="copy-btn-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
                             <rect x="9" y="9" width="13" height="13" rx="2" />
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                         </svg>
+                        Copy
                     </button>
                 </div>
+                <code class="ca-address" id="full-ca">EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump</code>
             </div>
         </div>
     </section>
 
-    <!-- how to buy -->
-    <section id="buy" class="section">
+    <!-- buy -->
+    <section id="buy" class="section section-alt">
         <div class="container">
-            <div class="section-label reveal">Get $RARE</div>
+            <div class="section-header reveal">
+                <span class="section-tag">Get $RARE</span>
+            </div>
             <h2 class="reveal">How to buy</h2>
-            <p class="section-sub reveal">Three steps. Takes about two minutes.</p>
+            <p class="section-desc reveal">Three steps. About two minutes.</p>
 
-            <div class="steps reveal">
-                <div class="step">
-                    <div class="step-num">1</div>
-                    <div class="step-body">
-                        <h3>Create a wallet</h3>
-                        <p>Download <strong>Phantom</strong> or any Solana-compatible wallet as a browser extension or
-                            mobile app.</p>
-                    </div>
+            <div class="steps-grid reveal">
+                <div class="step-card glow-card">
+                    <div class="step-number">01</div>
+                    <h3>Create a Wallet</h3>
+                    <p>Download <strong>Phantom</strong> or any Solana wallet as a browser extension or mobile app.</p>
                 </div>
-                <div class="step">
-                    <div class="step-num">2</div>
-                    <div class="step-body">
-                        <h3>Get SOL</h3>
-                        <p>Fund your wallet with SOL. You can buy directly within Phantom using a card, or transfer from
-                            an exchange.</p>
-                    </div>
+                <div class="step-card glow-card">
+                    <div class="step-number">02</div>
+                    <h3>Get SOL</h3>
+                    <p>Fund your wallet with SOL. Buy directly in Phantom with a card, or send from an exchange.</p>
                 </div>
-                <div class="step">
-                    <div class="step-num">3</div>
-                    <div class="step-body">
-                        <h3>Swap for $RARE</h3>
-                        <p>Go to <strong>Jupiter</strong> or <strong>Raydium</strong>, paste the $RARE contract address,
-                            set your amount, and confirm the swap.</p>
-                    </div>
+                <div class="step-card glow-card">
+                    <div class="step-number">03</div>
+                    <h3>Swap for $RARE</h3>
+                    <p>Go to <strong>Jupiter</strong> or <strong>Raydium</strong>, paste the CA, set your amount, swap.
+                    </p>
                 </div>
             </div>
 
             <a href="https://dexscreener.com/solana/EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump" target="_blank"
-                class="btn-primary reveal" style="margin-top:40px;">Buy on Dex →</a>
+                class="btn btn-glow reveal" style="margin-top:48px;">
+                <span>Buy on DexScreener →</span>
+            </a>
         </div>
     </section>
 
     <!-- footer -->
     <footer>
-        <div class="container footer-inner">
+        <div class="container footer-grid">
             <div class="footer-brand">
-                <img src="assets/pfp.png" alt="" class="footer-img">
-                <span class="footer-name">$RARE</span>
-                <span class="footer-tag">Less supply, more rare.</span>
+                <img src="assets/pfp.png" alt="" class="footer-pfp">
+                <div>
+                    <div class="footer-name">$RARE</div>
+                    <div class="footer-tagline">Less supply, more rare.</div>
+                </div>
             </div>
-            <div class="footer-links">
-                <a href="https://x.com/i/communities/2024113737133646333" target="_blank">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <div class="footer-socials">
+                <a href="https://x.com/i/communities/2024113737133646333" target="_blank" class="social-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                         <path
                             d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                     </svg>
-                    Twitter
                 </a>
-                <a href="https://t.me/RareCoinSol" target="_blank">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <a href="https://t.me/RareCoinSol" target="_blank" class="social-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                         <path
                             d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
                     </svg>
-                    Telegram
                 </a>
-                <a href="https://dexscreener.com/solana/EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump" target="_blank">
-                    DexScreener
+                <a href="https://dexscreener.com/solana/EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump" target="_blank"
+                    class="social-btn">
+                    DEX
                 </a>
             </div>
         </div>
         <div class="container">
-            <div class="footer-bottom">© 2025 $RARE</div>
+            <div class="footer-bottom">© 2025 $RARE · Built on Solana</div>
         </div>
     </footer>
 
-    <!-- toast -->
-    <div id="toast" class="toast">Copied!</div>
+    <div id="toast" class="toast">✓ Copied</div>
 
     <script src="script.js"></script>
 </body>

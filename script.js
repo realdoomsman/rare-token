@@ -1,61 +1,108 @@
 document.addEventListener('DOMContentLoaded', () => {
     const CA = 'EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump';
 
-    // ---- cursor glow ----
-    const glow = document.getElementById('cursor-glow');
-    let mx = 0, my = 0, gx = 0, gy = 0;
+    // ===== PARTICLE CANVAS =====
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let w, h;
 
-    document.addEventListener('mousemove', e => {
-        mx = e.clientX;
-        my = e.clientY;
-    });
-
-    function animGlow() {
-        gx += (mx - gx) * 0.08;
-        gy += (my - gy) * 0.08;
-        glow.style.left = gx + 'px';
-        glow.style.top = gy + 'px';
-        requestAnimationFrame(animGlow);
+    function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
     }
-    animGlow();
+    resize();
+    window.addEventListener('resize', resize);
 
-    // ---- coin 3D tilt ----
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+        reset() {
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.3;
+            this.speedY = (Math.random() - 0.5) * 0.3;
+            this.opacity = Math.random() * 0.4 + 0.1;
+            this.hue = Math.random() > 0.5 ? 260 : 300; // purple or pink
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) this.reset();
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(${this.hue}, 80%, 75%, ${this.opacity})`;
+            ctx.fill();
+        }
+    }
+
+    // create particles
+    const count = Math.min(80, Math.floor((w * h) / 15000));
+    for (let i = 0; i < count; i++) {
+        particles.push(new Particle());
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => { p.update(); p.draw(); });
+
+        // draw connections
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(167, 139, 250, ${0.06 * (1 - dist / 120)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // ===== COIN 3D TILT =====
     const coin = document.getElementById('hero-coin');
-    const coinWrap = document.getElementById('coin-container');
+    const coinWrap = document.getElementById('coin-wrapper');
+    let rx = 0, ry = 0, trx = 0, try_ = 0;
 
     if (coin && coinWrap) {
-        let rx = 0, ry = 0, trx = 0, try_ = 0;
-
         document.addEventListener('mousemove', e => {
             const rect = coinWrap.getBoundingClientRect();
             const cx = rect.left + rect.width / 2;
             const cy = rect.top + rect.height / 2;
-            trx = -((e.clientY - cy) / (rect.height / 2)) * 18;
-            try_ = ((e.clientX - cx) / (rect.width / 2)) * 18;
+            trx = -((e.clientY - cy) / (rect.height / 2)) * 20;
+            try_ = ((e.clientX - cx) / (rect.width / 2)) * 20;
         });
 
         function tickCoin() {
-            rx += (trx - rx) * 0.06;
-            ry += (try_ - ry) * 0.06;
+            rx += (trx - rx) * 0.05;
+            ry += (try_ - ry) * 0.05;
             coin.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
             requestAnimationFrame(tickCoin);
         }
         tickCoin();
     }
 
-    // ---- nav scroll ----
+    // ===== NAV =====
     const nav = document.getElementById('navbar');
     const sections = document.querySelectorAll('.section');
     const navLinks = document.querySelectorAll('.nav-links a');
 
     function onScroll() {
-        nav.classList.toggle('scrolled', window.scrollY > 50);
-
-        // active section
+        nav.classList.toggle('scrolled', window.scrollY > 60);
         let current = '';
         sections.forEach(sec => {
-            const top = sec.offsetTop - 200;
-            if (window.scrollY >= top) current = sec.id;
+            if (window.scrollY >= sec.offsetTop - 200) current = sec.id;
         });
         navLinks.forEach(link => {
             link.classList.toggle('active', link.getAttribute('href') === '#' + current);
@@ -64,15 +111,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    // ---- hamburger ----
+    // hamburger
     const burger = document.getElementById('burger');
-    const navLinksEl = document.getElementById('nav-links');
-    burger.addEventListener('click', () => navLinksEl.classList.toggle('open'));
-    navLinksEl.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => navLinksEl.classList.remove('open'));
+    const navEl = document.getElementById('nav-links');
+    burger.addEventListener('click', () => navEl.classList.toggle('open'));
+    navEl.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => navEl.classList.remove('open'));
     });
 
-    // ---- copy ----
+    // ===== COPY CA =====
     const toast = document.getElementById('toast');
     function copyCA() {
         navigator.clipboard.writeText(CA).catch(() => {
@@ -83,26 +130,25 @@ document.addEventListener('DOMContentLoaded', () => {
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 2000);
     }
-    document.getElementById('copy-btn').addEventListener('click', copyCA);
+    document.getElementById('copy-btn')?.addEventListener('click', copyCA);
     document.getElementById('copy-btn-2')?.addEventListener('click', copyCA);
     document.getElementById('ca-text')?.addEventListener('click', copyCA);
     document.getElementById('full-ca')?.addEventListener('click', copyCA);
 
-    // ---- scroll reveal ----
+    // ===== SCROLL REVEAL =====
     const revealEls = document.querySelectorAll('.reveal');
     const revealObs = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // stagger sibling reveals
                 const parent = entry.target.parentElement;
                 const siblings = [...parent.querySelectorAll('.reveal')];
                 siblings.forEach((el, i) => {
-                    setTimeout(() => el.classList.add('visible'), i * 100);
+                    setTimeout(() => el.classList.add('visible'), i * 120);
                 });
                 revealObs.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
     const seen = new Set();
     revealEls.forEach(el => {
@@ -110,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!seen.has(p)) { seen.add(p); revealObs.observe(el); }
     });
 
-    // ---- animated counters ----
+    // ===== ANIMATED COUNTERS =====
     const counterEls = document.querySelectorAll('[data-count]');
     const counterObs = new IntersectionObserver(entries => {
         entries.forEach(entry => {
@@ -120,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const suffix = el.dataset.suffix || '';
                 const isDecimal = end % 1 !== 0;
                 const startTime = performance.now();
-                const dur = 1800;
+                const dur = 2000;
 
                 function count(now) {
                     const t = Math.min((now - startTime) / dur, 1);
@@ -136,19 +182,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.3 });
     counterEls.forEach(el => counterObs.observe(el));
 
-    // ---- burn bar ----
-    const burnBar = document.getElementById('burn-progress');
+    // ===== BURN BAR =====
+    const burnBar = document.getElementById('burn-filled');
     if (burnBar) {
         const burnObs = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting) {
-                setTimeout(() => { burnBar.style.width = '71.7%'; }, 300);
+                setTimeout(() => { burnBar.style.width = '71.7%'; }, 400);
                 burnObs.unobserve(entries[0].target);
             }
-        }, { threshold: 0.2 });
+        }, { threshold: 0.15 });
         burnObs.observe(burnBar.parentElement);
     }
 
-    // ---- live data ----
+    // ===== STAT BAR FILLS =====
+    const statBars = document.querySelectorAll('.stat-bar-fill');
+    const barObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.transition = 'width 1.5s cubic-bezier(0.16, 1, 0.3, 1)';
+                entry.target.style.width = entry.target.style.getPropertyValue('--fill');
+                barObs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    statBars.forEach(bar => {
+        bar.style.width = '0%';
+        barObs.observe(bar);
+    });
+
+    // ===== LIVE DATA =====
     const API = `https://api.dexscreener.com/latest/dex/tokens/${CA}`;
 
     async function fetchData() {
@@ -156,10 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const res = await fetch(API);
             const json = await res.json();
             if (!json.pairs?.length) return;
-
-            const pair = json.pairs.sort((a, b) =>
-                (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0)
-            )[0];
+            const pair = json.pairs.sort((a, b) => (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0))[0];
 
             const price = parseFloat(pair.priceUsd);
             setVal('price-value', price < 0.01 ? `$${price.toFixed(8)}` : `$${price.toFixed(4)}`);
@@ -171,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const chEl = document.getElementById('change-value');
             if (chEl) {
                 chEl.textContent = `${change >= 0 ? '+' : ''}${parseFloat(change).toFixed(2)}%`;
-                chEl.className = 'data-value ' + (change >= 0 ? 'change-up' : 'change-down');
+                chEl.className = 'data-val ' + (change >= 0 ? 'change-up' : 'change-down');
             }
 
             const b = pair.txns?.m5?.buys || 0;
@@ -182,40 +241,40 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('last-update').textContent =
                 new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         } catch (err) {
-            console.error('Data fetch error:', err);
+            console.error('Fetch error:', err);
         }
     }
 
     function setVal(id, val) {
         const el = document.getElementById(id);
         if (!el) return;
+        const prev = el.textContent;
         el.textContent = val;
-        el.style.transition = 'none';
-        el.style.opacity = '0.5';
-        requestAnimationFrame(() => {
-            el.style.transition = 'opacity 0.5s';
-            el.style.opacity = '1';
-        });
+        if (prev !== val && prev !== '—') {
+            el.style.transition = 'none';
+            el.style.textShadow = '0 0 20px rgba(167, 139, 250, 0.5)';
+            requestAnimationFrame(() => {
+                el.style.transition = 'text-shadow 1s';
+                el.style.textShadow = 'none';
+            });
+        }
     }
 
     function fmtUsd(n) {
         if (n >= 1e9) return `$${(n / 1e9).toFixed(2)}B`;
         if (n >= 1e6) return `$${(n / 1e6).toFixed(2)}M`;
-        if (n >= 1e3) return `$${(n / 1e3).toFixed(2)}K`;
+        if (n >= 1e3) return `$${(n / 1e3).toFixed(1)}K`;
         return `$${parseFloat(n).toFixed(2)}`;
     }
 
     fetchData();
     setInterval(fetchData, 30000);
 
-    // ---- smooth scroll ----
+    // ===== SMOOTH SCROLL =====
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => {
             const target = document.querySelector(a.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
+            if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
         });
     });
 });
