@@ -4,49 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>$RARE — Scarcity Is Reality</title>
-    <meta name="description"
-        content="$RARE: Over 71.7% of the supply permanently destroyed. Things become rare when there isn't much of them left.">
-    <meta property="og:title" content="$RARE — The Diamond Standard">
-    <meta property="og:description" content="Over 71.7% burned. Scarcity isn't a promise — it's already reality.">
+    <title>$RARE</title>
+    <meta name="description" content="71.7% of the supply is gone. Permanently. $RARE on Solana.">
+    <meta property="og:title" content="$RARE">
+    <meta property="og:description" content="71.7% burned. What's left is all there'll ever be.">
     <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="assets/rare-coin.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Layers -->
-    <canvas id="particles"></canvas>
-    <div class="noise"></div>
+    <div class="cursor-glow" id="cursor-glow"></div>
 
-    <!-- Navbar -->
+    <!-- Nav -->
     <nav id="navbar">
         <div class="nav-inner">
             <a href="#" class="nav-logo">
-                <span class="logo-icon">◆</span>
-                <span class="logo-text">$RARE</span>
+                <img src="assets/rare-coin.png" alt="RARE" class="logo-img">
+                <span>$RARE</span>
             </a>
             <div class="nav-links" id="nav-links">
-                <a href="#about">About</a>
-                <a href="#live-data">Live Data</a>
-                <a href="#tokenomics">Tokenomics</a>
-                <a href="#how-to-buy">How to Buy</a>
+                <a href="#about" data-nav>About</a>
+                <a href="#data" data-nav>Data</a>
+                <a href="#supply" data-nav>Supply</a>
+                <a href="#get" data-nav>Get it</a>
             </div>
             <div class="nav-actions">
                 <a href="https://dexscreener.com/solana/EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump" target="_blank"
-                    class="btn btn-primary btn-sm">
-                    <span>Buy $RARE</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2.5">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" />
-                    </svg>
-                </a>
-                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-                    <span></span><span></span><span></span>
+                    class="nav-buy-btn" id="nav-buy-btn">Buy $RARE</a>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span><span></span>
                 </button>
             </div>
         </div>
@@ -54,90 +46,84 @@
 
     <!-- Hero -->
     <header id="hero">
-        <div class="hero-badge glass-card-subtle">
-            <span class="badge-dot"></span>
-            <span>71.7% Supply Permanently Destroyed</span>
-        </div>
-        <h1 class="hero-title">
-            <span class="line">Things Become</span>
-            <span class="line accent">Rare</span>
-            <span class="line">When There Isn't</span>
-            <span class="line">Much Of Them Left.</span>
-        </h1>
-        <p class="hero-sub">Like diamonds pulled from the earth — once they're gone, no one can replace them. <br>$RARE
-            applies the same principle to crypto. The burn is done. Scarcity is reality.</p>
-        <div class="hero-actions">
-            <a href="https://dexscreener.com/solana/EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump" target="_blank"
-                class="btn btn-primary btn-lg">
-                <span>Buy on DexScreener</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
-            </a>
-            <button class="btn btn-glass btn-lg" id="copy-ca-btn">
-                <span class="ca-text">EE7SWK...pump</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="9" y="9" width="13" height="13" rx="2" />
-                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
-                </svg>
-            </button>
-        </div>
-        <div id="copy-toast" class="toast">Copied!</div>
-
-        <!-- Floating Coin -->
-        <div class="hero-coin-container">
-            <div class="coin-glow"></div>
-            <div class="coin-body">
-                <div class="coin-shine"></div>
-                <span class="coin-label">RARE</span>
+        <div class="hero-layout">
+            <div class="hero-text">
+                <div class="hero-tag">71.7% supply permanently destroyed</div>
+                <h1>
+                    <span class="line" data-reveal>Things become</span>
+                    <span class="line rare-word" data-reveal><span class="rare-text" id="rare-text">rare</span></span>
+                    <span class="line" data-reveal>when there isn't much</span>
+                    <span class="line" data-reveal>of them left.</span>
+                </h1>
+                <p class="hero-desc" data-reveal>
+                    Like anything scarce — once it's gone, nobody can make more.
+                    $RARE took that idea and made it permanent on Solana.
+                </p>
+                <div class="hero-actions" data-reveal>
+                    <a href="https://dexscreener.com/solana/EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump"
+                        target="_blank" class="btn-primary">Buy on Dex</a>
+                    <button class="btn-secondary" id="copy-ca-btn">Copy address</button>
+                </div>
+                <div class="ca-row" data-reveal>
+                    <code id="ca-text">EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump</code>
+                </div>
             </div>
-            <div class="coin-ring"></div>
+            <div class="hero-visual">
+                <div class="coin-container" id="coin-container">
+                    <div class="coin-shadow"></div>
+                    <img src="assets/rare-coin.png" alt="$RARE" class="hero-coin" id="hero-coin">
+                    <div class="coin-reflection"></div>
+                </div>
+            </div>
         </div>
     </header>
 
-    <!-- Marquee -->
-    <div class="marquee">
-        <div class="marquee-track">
-            <span>DIAMOND STANDARD ◆ 71.7% BURNED ◆ MAXIMUM SCARCITY ◆ LESS SUPPLY = MORE RARE ◆ </span>
-            <span>DIAMOND STANDARD ◆ 71.7% BURNED ◆ MAXIMUM SCARCITY ◆ LESS SUPPLY = MORE RARE ◆ </span>
-            <span>DIAMOND STANDARD ◆ 71.7% BURNED ◆ MAXIMUM SCARCITY ◆ LESS SUPPLY = MORE RARE ◆ </span>
-            <span>DIAMOND STANDARD ◆ 71.7% BURNED ◆ MAXIMUM SCARCITY ◆ LESS SUPPLY = MORE RARE ◆ </span>
+    <!-- Ticker -->
+    <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+            <span>$RARE</span><span class="dot"></span>
+            <span>71.7% burned</span><span class="dot"></span>
+            <span>283M remaining</span><span class="dot"></span>
+            <span>Solana</span><span class="dot"></span>
+            <span>$RARE</span><span class="dot"></span>
+            <span>71.7% burned</span><span class="dot"></span>
+            <span>283M remaining</span><span class="dot"></span>
+            <span>Solana</span><span class="dot"></span>
+            <span>$RARE</span><span class="dot"></span>
+            <span>71.7% burned</span><span class="dot"></span>
+            <span>283M remaining</span><span class="dot"></span>
+            <span>Solana</span><span class="dot"></span>
+            <span>$RARE</span><span class="dot"></span>
+            <span>71.7% burned</span><span class="dot"></span>
+            <span>283M remaining</span><span class="dot"></span>
+            <span>Solana</span><span class="dot"></span>
         </div>
     </div>
 
     <!-- About -->
-    <section id="about" class="section reveal">
-        <div class="section-grid two-col">
-            <div class="about-text">
-                <span class="section-tag">The Narrative</span>
-                <h2 class="section-heading">The Diamond<br>Standard.</h2>
-                <p class="text-body">In life, diamonds are rare because they're hard to find and limited. Once they're
-                    taken out of the ground, no one can easily replace them.</p>
-                <p class="text-body">The same applies to anything scarce — <strong>limited supply makes it more
-                        meaningful and more sought after.</strong></p>
-                <p class="text-body accent-text">$RARE works the exact same way.</p>
-                <div class="about-stats">
-                    <div class="about-stat">
-                        <span class="about-stat-value">71.7%</span>
-                        <span class="about-stat-label">Supply Burned</span>
-                    </div>
-                    <div class="about-stat">
-                        <span class="about-stat-value">283M</span>
-                        <span class="about-stat-label">Tokens Left</span>
-                    </div>
-                    <div class="about-stat">
-                        <span class="about-stat-value">Forever</span>
-                        <span class="about-stat-label">Irreversible</span>
-                    </div>
-                </div>
+    <section id="about" class="section">
+        <div class="split-section">
+            <div class="split-left reveal-group">
+                <span class="label-tag">The idea</span>
+                <h2>Scarcity isn't a promise.<br>It already happened.</h2>
+                <p>We started with 1 billion tokens. Over 717 million of them were burned — permanently removed from
+                    circulation. That's not a roadmap item or a future plan. It's done.</p>
+                <p>What's left — 283 million — is all there will ever be. No minting, no inflation, no second chances.
+                    The math is simple: less available means more rare.</p>
             </div>
-            <div class="about-visual">
-                <div class="diamond-cage">
-                    <div class="diamond-shape">
-                        <div class="diamond-facet f1"></div>
-                        <div class="diamond-facet f2"></div>
-                        <div class="diamond-facet f3"></div>
-                        <div class="diamond-facet f4"></div>
+            <div class="split-right">
+                <div class="stat-blocks">
+                    <div class="stat-block reveal-item" data-count="71.7" data-suffix="%">
+                        <span class="stat-num" id="stat-burned">0</span>
+                        <span class="stat-desc">of supply burned</span>
+                    </div>
+                    <div class="stat-block reveal-item" data-count="283" data-suffix="M">
+                        <span class="stat-num" id="stat-remaining">0</span>
+                        <span class="stat-desc">tokens remaining</span>
+                    </div>
+                    <div class="stat-block reveal-item">
+                        <span class="stat-num">0</span>
+                        <span class="stat-desc">new tokens ever</span>
                     </div>
                 </div>
             </div>
@@ -145,131 +131,113 @@
     </section>
 
     <!-- Live Data -->
-    <section id="live-data" class="section reveal">
-        <span class="section-tag center">Live Market Data</span>
-        <h2 class="section-heading center">Real-Time<br>Intelligence.</h2>
-        <p class="text-body center muted" style="max-width:540px;margin:0 auto 48px;">Powered by DexScreener. All data
-            updates in real-time so you never miss a move.</p>
-        <div class="live-grid">
-            <div class="live-card glass-card featured">
-                <div class="live-card-label">Market Cap</div>
-                <div class="live-card-value" id="mc-value">
-                    <span class="loading-shimmer">Loading...</span>
-                </div>
+    <section id="data" class="section">
+        <div class="section-intro reveal-group">
+            <span class="label-tag">Live</span>
+            <h2>Right now</h2>
+            <p class="section-sub">Pulled from DexScreener. Updates every 30 seconds.</p>
+        </div>
+        <div class="data-grid">
+            <div class="data-card data-card-main reveal-item">
+                <div class="data-label">Market cap</div>
+                <div class="data-value" id="mc-value">--</div>
             </div>
-            <div class="live-card glass-card">
-                <div class="live-card-label">Price (USD)</div>
-                <div class="live-card-value" id="price-value">
-                    <span class="loading-shimmer">Loading...</span>
-                </div>
+            <div class="data-card reveal-item">
+                <div class="data-label">Price</div>
+                <div class="data-value" id="price-value">--</div>
             </div>
-            <div class="live-card glass-card">
-                <div class="live-card-label">24h Volume</div>
-                <div class="live-card-value" id="volume-value">
-                    <span class="loading-shimmer">Loading...</span>
-                </div>
+            <div class="data-card reveal-item">
+                <div class="data-label">24h volume</div>
+                <div class="data-value" id="volume-value">--</div>
             </div>
-            <div class="live-card glass-card">
-                <div class="live-card-label">24h Change</div>
-                <div class="live-card-value" id="change-value">
-                    <span class="loading-shimmer">Loading...</span>
-                </div>
+            <div class="data-card reveal-item">
+                <div class="data-label">24h change</div>
+                <div class="data-value" id="change-value">--</div>
             </div>
-            <div class="live-card glass-card">
-                <div class="live-card-label">Liquidity</div>
-                <div class="live-card-value" id="liq-value">
-                    <span class="loading-shimmer">Loading...</span>
-                </div>
+            <div class="data-card reveal-item">
+                <div class="data-label">Liquidity</div>
+                <div class="data-value" id="liq-value">--</div>
             </div>
-            <div class="live-card glass-card">
-                <div class="live-card-label">5m Txns</div>
-                <div class="live-card-value" id="txns-value">
-                    <span class="loading-shimmer">Loading...</span>
-                </div>
+            <div class="data-card reveal-item">
+                <div class="data-label">5m transactions</div>
+                <div class="data-value" id="txns-value">--</div>
             </div>
         </div>
-        <p class="data-update-note">Auto-refreshes every 30 seconds · <span id="last-update">—</span></p>
+        <div class="data-footer">
+            <span>Last updated <span id="last-update">--</span></span>
+        </div>
     </section>
 
-    <!-- Tokenomics -->
-    <section id="tokenomics" class="section reveal">
-        <span class="section-tag center">Tokenomics</span>
-        <h2 class="section-heading center">The Burn Is<br>Complete.</h2>
-        <p class="text-body center muted" style="max-width:560px;margin:0 auto 48px;">Over 70% of the genesis supply has
-            been permanently destroyed. Scarcity is not a promise — it's already a reality.</p>
+    <!-- Supply / Tokenomics -->
+    <section id="supply" class="section">
+        <div class="section-intro reveal-group">
+            <span class="label-tag">Supply breakdown</span>
+            <h2>The burn is done</h2>
+            <p class="section-sub">No more tokens will ever be burned or created. This is the final state.</p>
+        </div>
 
-        <div class="tok-grid">
-            <div class="tok-card glass-card">
-                <div class="tok-icon">🔥</div>
-                <h3>Total Burned</h3>
-                <div class="tok-big-num accent-gradient" id="burn-pct">71.7%</div>
-                <p>Permanently sent to the void</p>
+        <div class="supply-visual reveal-item">
+            <div class="supply-bar-wrap">
+                <div class="supply-bar">
+                    <div class="supply-burned" id="supply-burned">
+                        <span class="supply-label-inside">Burned — 71.7%</span>
+                    </div>
+                    <div class="supply-remaining">
+                        <span class="supply-label-inside">Remaining — 28.3%</span>
+                    </div>
+                </div>
             </div>
-            <div class="tok-card glass-card">
-                <div class="tok-icon">💎</div>
-                <h3>Current Supply</h3>
-                <div class="tok-big-num" id="current-supply">283,000,000</div>
-                <p>Ultra-scarce remaining tokens</p>
-            </div>
-            <div class="tok-card glass-card">
-                <div class="tok-icon">🌐</div>
-                <h3>Genesis Supply</h3>
-                <div class="tok-big-num" id="genesis-supply">1,000,000,000</div>
-                <p>Original starting supply</p>
+            <div class="supply-numbers">
+                <div class="supply-num">
+                    <span class="sn-value">717,000,000</span>
+                    <span class="sn-label">destroyed permanently</span>
+                </div>
+                <div class="supply-num">
+                    <span class="sn-value">283,000,000</span>
+                    <span class="sn-label">circulating forever</span>
+                </div>
             </div>
         </div>
 
-        <div class="burn-bar-section glass-card reveal">
-            <div class="burn-bar-header">
-                <h3>Burn Visualization</h3>
-                <span class="burn-bar-pct fire-text">71.7% Destroyed</span>
-            </div>
-            <div class="burn-bar-track">
-                <div class="burn-bar-fill" id="burn-fill"></div>
-                <div class="burn-bar-glow" id="burn-glow"></div>
-            </div>
-            <div class="burn-bar-labels">
-                <span>0%</span>
-                <span class="fire-text">◆ Scarcity Achieved</span>
-                <span>100%</span>
-            </div>
-        </div>
-
-        <div class="ca-block glass-card reveal">
-            <span class="ca-block-label">Contract Address (Solana)</span>
-            <div class="ca-block-row">
-                <code id="full-ca">EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump</code>
-                <button class="copy-btn" id="copy-ca-btn-2" aria-label="Copy contract address">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" />
-                        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
-                    </svg>
-                </button>
+        <div class="ca-block reveal-item">
+            <div class="ca-block-inner">
+                <span class="ca-block-label">Contract address</span>
+                <div class="ca-block-row">
+                    <code id="full-ca">EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump</code>
+                    <button class="ca-copy-btn" id="copy-ca-btn-2" aria-label="Copy address">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- How to Buy -->
-    <section id="how-to-buy" class="section reveal">
-        <span class="section-tag center">Get Started</span>
-        <h2 class="section-heading center">How to Secure<br>$RARE.</h2>
-        <p class="text-body center muted" style="max-width:540px;margin:0 auto 48px;">The window to accumulate at these
-            levels won't last. Three simple steps.</p>
-        <div class="htb-grid">
-            <div class="htb-card glass-card">
-                <div class="htb-num">01</div>
-                <h3>Create a Wallet</h3>
+    <!-- How to get -->
+    <section id="get" class="section">
+        <div class="section-intro reveal-group">
+            <span class="label-tag">Get started</span>
+            <h2>How to get $RARE</h2>
+            <p class="section-sub">Three steps. Takes about two minutes.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card reveal-item">
+                <div class="step-number">1</div>
+                <h3>Create a wallet</h3>
                 <p>Download <strong>Phantom</strong> or any Solana-compatible wallet as a browser extension or mobile
                     app.</p>
             </div>
-            <div class="htb-card glass-card">
-                <div class="htb-num">02</div>
+            <div class="step-card reveal-item">
+                <div class="step-number">2</div>
                 <h3>Get SOL</h3>
                 <p>Fund your wallet with SOL. You can buy directly within Phantom using a card, or transfer from an
                     exchange.</p>
             </div>
-            <div class="htb-card glass-card">
-                <div class="htb-num">03</div>
+            <div class="step-card reveal-item">
+                <div class="step-number">3</div>
                 <h3>Swap for $RARE</h3>
                 <p>Go to <strong>Jupiter</strong> or <strong>Raydium</strong>, paste the $RARE contract address, set
                     your amount, and confirm the swap.</p>
@@ -279,30 +247,41 @@
 
     <!-- Footer -->
     <footer id="footer">
-        <div class="footer-top">
-            <div class="footer-brand">
-                <span class="footer-logo"><span class="logo-icon">◆</span> $RARE</span>
-                <p class="footer-tagline">Less supply means it's more rare.</p>
+        <div class="footer-inner">
+            <div class="footer-left">
+                <div class="footer-logo-row">
+                    <img src="assets/rare-coin.png" alt="" class="footer-coin">
+                    <span class="footer-name">$RARE</span>
+                </div>
+                <p class="footer-tagline">Less supply, more rare.</p>
             </div>
-            <div class="footer-links-grid">
-                <div class="footer-col">
-                    <h4>Links</h4>
-                    <a href="https://dexscreener.com/solana/EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump"
-                        target="_blank">DexScreener</a>
-                    <a href="#live-data">Live Data</a>
-                    <a href="#tokenomics">Tokenomics</a>
-                </div>
-                <div class="footer-col">
-                    <h4>Community</h4>
-                    <a href="https://x.com/i/communities/2024113737133646333" target="_blank">Twitter / X</a>
-                    <a href="https://t.me/RareCoinSol" target="_blank">Telegram</a>
-                </div>
+            <div class="footer-links">
+                <a href="https://x.com/i/communities/2024113737133646333" target="_blank" class="footer-link">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    Twitter
+                </a>
+                <a href="https://t.me/RareCoinSol" target="_blank" class="footer-link">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                    </svg>
+                    Telegram
+                </a>
+                <a href="https://dexscreener.com/solana/EE7SWKvFa9zPETA6UNytNgzbN2AKMMusZZdGPD3gpump" target="_blank"
+                    class="footer-link">
+                    DexScreener
+                </a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 $RARE. All rights reserved.</p>
+            <span>&copy; 2026 $RARE</span>
         </div>
     </footer>
+
+    <div id="toast" class="toast">Copied</div>
 
     <script src="script.js"></script>
 </body>
