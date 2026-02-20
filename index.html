@@ -18,6 +18,17 @@
 </head>
 
 <body>
+    <!-- loading screen -->
+    <div id="loader" class="loader">
+        <div class="loader-inner">
+            <img src="assets/pfp.png" alt="" class="loader-coin">
+            <div class="loader-bar">
+                <div class="loader-fill" id="loader-fill"></div>
+            </div>
+            <div class="loader-text">Loading $RARE</div>
+        </div>
+    </div>
+
     <!-- animated bg -->
     <canvas id="particles"></canvas>
     <div class="orb orb-1"></div>
@@ -149,21 +160,21 @@
                 </div>
                 <div class="about-right reveal">
                     <div class="stat-stack">
-                        <div class="stat-card glow-card">
+                        <div class="stat-card glow-card tilt-card">
                             <div class="stat-value" data-count="71.7" data-suffix="%">0%</div>
                             <div class="stat-desc">Supply burned forever</div>
                             <div class="stat-bar">
                                 <div class="stat-bar-fill" style="--fill: 71.7%"></div>
                             </div>
                         </div>
-                        <div class="stat-card glow-card">
+                        <div class="stat-card glow-card tilt-card">
                             <div class="stat-value" data-count="283" data-suffix="M">0M</div>
                             <div class="stat-desc">Tokens remaining</div>
                             <div class="stat-bar">
                                 <div class="stat-bar-fill" style="--fill: 28.3%"></div>
                             </div>
                         </div>
-                        <div class="stat-card glow-card stat-accent">
+                        <div class="stat-card glow-card tilt-card stat-accent">
                             <div class="stat-value">0</div>
                             <div class="stat-desc">New tokens. Ever.</div>
                         </div>
@@ -181,27 +192,27 @@
                 <span class="live-indicator"><span class="live-pulse"></span>LIVE</span>
             </div>
             <div class="data-grid reveal">
-                <div class="data-card data-hero glow-card">
+                <div class="data-card data-hero glow-card tilt-card">
                     <span class="data-label">Market Cap</span>
                     <span class="data-val" id="mc-value">—</span>
                 </div>
-                <div class="data-card glow-card">
+                <div class="data-card glow-card tilt-card">
                     <span class="data-label">Price</span>
                     <span class="data-val" id="price-value">—</span>
                 </div>
-                <div class="data-card glow-card">
+                <div class="data-card glow-card tilt-card">
                     <span class="data-label">24h Volume</span>
                     <span class="data-val" id="volume-value">—</span>
                 </div>
-                <div class="data-card glow-card">
+                <div class="data-card glow-card tilt-card">
                     <span class="data-label">24h Change</span>
                     <span class="data-val" id="change-value">—</span>
                 </div>
-                <div class="data-card glow-card">
+                <div class="data-card glow-card tilt-card">
                     <span class="data-label">Liquidity</span>
                     <span class="data-val" id="liq-value">—</span>
                 </div>
-                <div class="data-card glow-card">
+                <div class="data-card glow-card tilt-card">
                     <span class="data-label">5m Buys / Sells</span>
                     <span class="data-val" id="txns-value">—</span>
                 </div>
@@ -223,20 +234,28 @@
                 <div class="burn-track">
                     <div class="burn-filled" id="burn-filled">
                         <div class="burn-shimmer"></div>
-                        <span class="burn-txt">🔥 Burned — 71.7%</span>
+                        <span class="burn-txt">Burned — 71.7%</span>
                     </div>
                     <span class="burn-rest-txt">Remaining — 28.3%</span>
                 </div>
             </div>
 
             <div class="supply-grid reveal">
-                <div class="supply-item glow-card">
-                    <div class="supply-icon">🔥</div>
+                <div class="supply-item glow-card tilt-card">
+                    <div class="supply-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                            stroke="var(--red)" stroke-width="2" stroke-linecap="round">
+                            <path d="M12 12c-2-2.67-4-4.33-4-6a4 4 0 0 1 8 0c0 1.67-2 3.33-4 6z" />
+                            <path d="M12 12c3.5 4 6 6.67 6 8.5a6 6 0 0 1-12 0c0-1.83 2.5-4.5 6-8.5z" />
+                        </svg></div>
                     <div class="supply-num">717,000,000</div>
                     <div class="supply-label">Tokens Destroyed</div>
                 </div>
-                <div class="supply-item glow-card">
-                    <div class="supply-icon">💎</div>
+                <div class="supply-item glow-card tilt-card">
+                    <div class="supply-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                            stroke="var(--cyan)" stroke-width="2" stroke-linecap="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg></div>
                     <div class="supply-num">283,000,000</div>
                     <div class="supply-label">In Circulation</div>
                 </div>
@@ -269,17 +288,17 @@
             <p class="section-desc reveal">Three steps. About two minutes.</p>
 
             <div class="steps-grid reveal">
-                <div class="step-card glow-card">
+                <div class="step-card glow-card tilt-card">
                     <div class="step-number">01</div>
                     <h3>Create a Wallet</h3>
                     <p>Download <strong>Phantom</strong> or any Solana wallet as a browser extension or mobile app.</p>
                 </div>
-                <div class="step-card glow-card">
+                <div class="step-card glow-card tilt-card">
                     <div class="step-number">02</div>
                     <h3>Get SOL</h3>
                     <p>Fund your wallet with SOL. Buy directly in Phantom with a card, or send from an exchange.</p>
                 </div>
-                <div class="step-card glow-card">
+                <div class="step-card glow-card tilt-card">
                     <div class="step-number">03</div>
                     <h3>Swap for $RARE</h3>
                     <p>Go to <strong>Jupiter</strong> or <strong>Raydium</strong>, paste the CA, set your amount, swap.
@@ -328,7 +347,7 @@
         </div>
     </footer>
 
-    <div id="toast" class="toast">✓ Copied</div>
+    <div id="toast" class="toast">Copied!</div>
 
     <script src="script.js"></script>
 </body>
